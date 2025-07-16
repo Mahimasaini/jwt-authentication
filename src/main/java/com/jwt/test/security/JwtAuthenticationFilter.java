@@ -13,6 +13,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.jwt.test.util.Constants;
+
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import jakarta.servlet.FilterChain;
@@ -24,6 +26,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 	private Logger logger = LoggerFactory.getLogger(OncePerRequestFilter.class);
+
 	@Autowired
 	private JwtHelper jwtHelper;
 
@@ -31,19 +34,23 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	private UserDetailsService userDetailsService;
 
 	@Override
+	protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+		String path = request.getRequestURI();
+
+		// Optionally normalize
+		return Constants.EXCLUDE_URLS.stream().anyMatch(path::startsWith);
+	}
+
+	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-
 		String requestHeader = request.getHeader("Authorization");
 		String username = null;
 		String token = null;
 		if (requestHeader != null && requestHeader.startsWith("Bearer")) {
-			// looking good
 			token = requestHeader.substring(7);
 			try {
-
 				username = this.jwtHelper.getUsernameFromToken(token);
-
 			} catch (IllegalArgumentException e) {
 				logger.info("Illegal Argument while fetching the username !!");
 				e.printStackTrace();
@@ -55,9 +62,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 				e.printStackTrace();
 			} catch (Exception e) {
 				e.printStackTrace();
-
 			}
-
 		} else {
 			logger.info("Invalid Header Value !! ");
 		}
@@ -83,6 +88,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		}
 
 		filterChain.doFilter(request, response);
-
 	}
+
 }

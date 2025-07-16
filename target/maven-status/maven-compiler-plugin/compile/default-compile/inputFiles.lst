@@ -15,3 +15,4 @@
 /home/mahima/jwt-authentication/src/main/java/com/jwt/test/security/SecurityConfig.java
 /home/mahima/jwt-authentication/src/main/java/com/jwt/test/security/SecurityUser.java
 /home/mahima/jwt-authentication/src/main/java/com/jwt/test/service/UserService.java
+/home/mahima/jwt-authentication/src/main/java/com/jwt/test/util/Constants.java

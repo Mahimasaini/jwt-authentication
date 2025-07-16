@@ -3,11 +3,16 @@ com/jwt/test/security/JwtAuthenticationEntryPoint.class
 com/jwt/test/security/AuthEntryPointJwt.class
 com/jwt/test/controller/AuthController.class
 com/jwt/test/security/JwtHelper.class
+com/jwt/test/util/Constants.class
 com/jwt/test/security/SecurityUser.class
 com/jwt/test/repository/UserRepository.class
 com/jwt/test/TestApplication.class
 com/jwt/test/model/User.class
+com/jwt/test/service/UserService.class
 com/jwt/test/dto/JwtResponse.class
+com/jwt/test/controller/UserController.class
 com/jwt/test/security/JwtAuthenticationFilter.class
+com/jwt/test/controller/TestController.class
 com/jwt/test/dto/JwtRequest.class
+com/jwt/test/dto/UserDTO.class
 com/jwt/test/security/CustomUserDetailsService.class
